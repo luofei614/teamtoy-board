@@ -1,7 +1,7 @@
 @charset 'utf-8';
 #board_create{ text-align:right; padding:15px 5px 0px 5px;}
 #board_main{background:url(../../static/image/tt2bg.png); border-radius:5px; margin-top:5px; min-height:460px;  overflow:auto;}
-#board_main .list,.list_dash{width:200px; background:#E3E3E3; margin-left:10px; border-top:1px solid #fff; border-bottom:1px solid #404040; border-radius:3px; margin-top:20px; max-height:412px; padding:10px;}
+#board_main .list,.list_dash{width:200px; background:#E3E3E3; margin-left:10px; margin-top:10px!important; border-top:1px solid #fff; border-bottom:1px solid #404040; border-radius:3px; margin-top:20px; max-height:412px; padding:10px;}
 #board_main .list h5{ margin:0px; width:160px;}
 #board_main .list .card_list{ max-height:360px;  overflow:auto;}
 #board_main .list .card{background-color:#fff;border:1px solid #b9b9b9;border-bottom-color:#939393; border-radius:3px; padding:3px; margin-top:3px; cursor:-moz-grab;cursor:-webkit-grab;cursor:grab; width:192px;}
