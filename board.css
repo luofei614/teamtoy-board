@@ -21,6 +21,6 @@
 .card_dash{ background:#c3c3c3!important; border:none!important;}
 .card_done{ text-decoration:line-through; color:#969696;}
 .dash_delete{ background:#cb4d4d!important; color:#fff;}
-.dash_delete:after{content:'TODO会被删除';}
+.dash_delete:after{content:'TODO将从看板移除';}
 #at-view { z-index:2000!important;}
 #todo_batch_add_input{ height:150px;}
