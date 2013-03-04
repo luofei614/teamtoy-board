@@ -21,6 +21,13 @@ function board_icon()
 }
 add_action('PLUGIN_BOARD','board_display');
 function board_display(){
+	//智能跳转
+	$board_id=isset($_GET['id'])?intval(v('id')):1;
+	if(!isset($_GET['id']) && isset($_SESSION['board_id']) && 1!=$_SESSION['board_id']){
+		header('location:?c=plugin&a=board&id='.$_SESSION['board_id']);
+		exit();	
+	}
+	$_SESSION['board_id']=$board_id;
 	//初始化数据库
 	if(!get_data("SHOW TABLES LIKE 'board'")){
 		$sql=<<<SQL
@@ -58,7 +65,7 @@ SQL;
 		info_page($msg);
 	}
 	$data['board']=$board_data['data'];
-	$data['id']=isset($_GET['id'])?intval(v('id')):1;
+	$data['id']=$board_id;
 	$board_list=json_decode(send_request('board_list',array(),token()),true);
 	$data['board_list']=$board_list['data'];
 	render($data,'web','plugin','board');
