@@ -174,7 +174,7 @@ function plugin_board_todo_import(){
 add_action('PLUGIN_BOARD_GET_TODO_BY_UID','plugin_board_get_todo_by_uid');
 function plugin_board_get_todo_by_uid($uid=null){
 	$sql_uid=empty($uid)?intval(v('uid')):$uid;
-	$data=get_data("select id,content from todo left join todo_user on todo.id=todo_user.tid where todo.owner_uid='{$sql_uid}' and todo_user.status!=3");
+	$data=get_data("select distinct id,content from todo left join todo_user on todo.id=todo_user.tid where todo.owner_uid='{$sql_uid}' and todo_user.status!=3");
 	if(empty($uid)) exit(json_encode($data));
 	return $data;
 }
@@ -271,7 +271,7 @@ function board_data(){
 		//读取list下的TODO
 		foreach($list as $arr){
 			$todos=trim($arr['todos'],',');
-			$arr['todo_lists']=empty($todos)?array():get_data("select id,content,status from todo left join todo_user on todo_user.tid=todo.id where id in({$todos}) order by find_in_set(id,'{$todos}')");
+			$arr['todo_lists']=empty($todos)?array():get_data("select distinct id,content,status from todo left join todo_user on todo_user.tid=todo.id where id in({$todos}) order by find_in_set(id,'{$todos}')");
 			$result['lists'][]=$arr;
 		}
 	}
