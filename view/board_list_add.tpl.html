@@ -1,0 +1,5 @@
+<form action="?c=plugin&a=board_list_insert" id="board_list_add_form" method="POST">
+	<input type="TEXT" name="name" placeholder="列表名称" class="span3" id="board_list_name" />
+	<input type="hidden" name="board_id" value="<?=intval(v('board_id'))?>" />
+	<button type="submit" class="btn board_create_btn">创建</button>
+</form>

@@ -1,0 +1,8 @@
+<form action="?c=plugin&a=board_add" id="board_add_form" method="POST">
+	<input type="TEXT" name="name" placeholder="看板名称" class="span3" id="board_name" /><br />
+	<select id="board_visible" class="span2" name="visible">
+		<option value="all" onclick="$('#board_visible_value').hide();" >所有人可见</option>
+		<option value="private" onclick="$('#board_visible_value').hide();" >仅自己可见</option>
+	</select>
+	<button type="submit" class="btn board_create_btn">创建</button>
+</form>
