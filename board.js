@@ -39,13 +39,20 @@ $(function(){
 	});
 
 	$('.todo_status').click(function(e){
-		//显示弹出层
-		var tid=$(this).parent().attr('tid');
-		$('<div id="todo_status_pop" class="nav-collapse open"><ul class="dropdown-menu"><li><a href="javascript:todo_status(\'pause\','+tid+');">todo</a></li><li><a href="javascript:todo_status(\'start\','+tid+')">doing</a></li><li><a href="javascript:todo_status_done('+tid+')">done</a></li></ul></div>').appendTo('body').css("position","absolute").offset({top:($(this).offset().top+20),left:$(this).offset().left});;
+		$('#todo_status_pop').remove();
+		if($(this).is('.open')){
+			$(this).removeClass('open');
+		}else{
+			//显示弹出层
+			var tid=$(this).parent().attr('tid');
+			$('<div id="todo_status_pop" class="nav-collapse open"><ul class="dropdown-menu"><li><a href="javascript:todo_status(\'pause\','+tid+');">todo</a></li><li><a href="javascript:todo_status(\'start\','+tid+')">doing</a></li><li><a href="javascript:todo_status_done('+tid+')">done</a></li></ul></div>').appendTo('body').css("position","absolute").offset({top:($(this).offset().top+20),left:$(this).offset().left});;
+			$(this).addClass('open');
+		}
 		e.stopPropagation();
 	});
 	$(document).click(function(){
 		$('#todo_status_pop').remove();
+		$('.todo_status').removeClass('open');
 	});
 
 });
