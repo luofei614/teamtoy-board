@@ -32,7 +32,52 @@ $(function(){
 		'outer':'#board_main'
 	});
 
+	$('.card').hover(function(){
+		$(this).find('.todo_status').show();
+	},function(){
+		$(this).find('.todo_status').hide();
+	});
+
+	$('.todo_status').click(function(e){
+		//显示弹出层
+		var tid=$(this).parent().attr('tid');
+		$('<div id="todo_status_pop" class="nav-collapse open"><ul class="dropdown-menu"><li><a href="javascript:todo_status(\'pause\','+tid+');">todo</a></li><li><a href="javascript:todo_status(\'start\','+tid+')">doing</a></li><li><a href="javascript:todo_status_done('+tid+')">done</a></li></ul></div>').appendTo('body').css("position","absolute").offset({top:($(this).offset().top+20),left:$(this).offset().left});;
+		e.stopPropagation();
+	});
+	$(document).click(function(){
+		$('#todo_status_pop').remove();
+	});
+
 });
+
+function todo_status(type,tid){
+	$.get('?c=dashboard&a=todo_start&tid='+tid+'&type='+type,function(d,x,s){
+		var ret=$.parseJSON(d);
+		if(!ret || 0!=ret.err_code){
+			alert('操作失败');
+			return;
+		}
+		$('.card[tid="'+tid+'"]').removeClass('card_done');	
+		if('start'==type){
+			$('.card[tid="'+tid+'"]').addClass('card_doing');
+		}else{
+			$('.card[tid="'+tid+'"]').removeClass('card_doing');
+		}		
+	});
+}
+
+function todo_status_done(tid){
+	$.post('?c=dashboard&a=todo_done','tid='+tid,function(d,x,s){
+		var ret=$.parseJSON(d);
+		if(!ret || 0!=ret.err_code){
+			alert('操作失败');
+			return;
+		}
+		$('.card[tid="'+tid+'"]').removeClass('card_doing');
+		$('.card[tid="'+tid+'"]').addClass('card_done');	
+			
+	})
+}
 
 function card_sort(){
 	$('.list').each(function(){
@@ -81,12 +126,12 @@ function list_edit_cancel(id){
 	$('#list_head_'+id).show();
 }
 
-function todo_batch_add(board_id,list_id){
+function todo_batch_add(board_id,list_id,visible){
 	$('#float_box').off('show');
 	$('#float_box').on('show', function () 
 	{
   		$('#float_box_title').text('批量添加TODO');
-  		$('#float_box .modal-body').load('?c=plugin&a=board_todo_add&board_id='+board_id+'&list_id='+list_id,function(){
+  		$('#float_box .modal-body').load('?c=plugin&a=board_todo_add&board_id='+board_id+'&list_id='+list_id+'&visible='+visible,function(){
 			enable_at('todo_batch_add_input');
 		});
 	})

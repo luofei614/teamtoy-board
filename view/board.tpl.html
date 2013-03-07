@@ -65,12 +65,21 @@
 			<?php
 				foreach($list['todo_lists'] as $card):
 			?>
-				<div class="card card_drag<?php if(3==$card['status']) echo ' card_done';?>" onclick="show_todo_detail_center(<?=$card['id']?>);" tid="<?=$card['id']?>"><?=$card['content']?></div>
+			<div class="card clearfix card_drag<?php 
+				if(3==$card['status']) 
+						echo ' card_done';
+				elseif(2==$card['status'])
+						echo ' card_doing';
+				
+				?>" onclick="show_todo_detail_center(<?=$card['id']?>);" tid="<?=$card['id']?>">
+				<span><?=$card['content']?></span>
+				<i class="todo_status icon-chevron-down" title="切换TODO状态"></i> 
+			</div>
 			<?php
 				endforeach;
 			?>	
 		</div>
-		<div class="add_card">追加TODO：<a class="side_link" href="javascript:todo_batch_add(<?=$id?>,<?=$list['id']?>);">创建</a> 或 <a class="side_link" href="javascript:show_float_box('导入已有TODO','?c=plugin&a=board_todo_import&board_id=<?=$id?>&list_id=<?=$list['id']?>');">导入</a></div>
+		<div class="add_card">追加TODO：<a class="side_link" href="javascript:todo_batch_add(<?=$id?>,<?=$list['id']?>,'<?=$board['visible']?>');">创建</a> 或 <a class="side_link" href="javascript:show_float_box('导入已有TODO','?c=plugin&a=board_todo_import&board_id=<?=$id?>&list_id=<?=$list['id']?>');">导入</a></div>
 	</div><!--/list-->
 	<?php 
 	endforeach;

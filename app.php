@@ -378,26 +378,35 @@ function board_todo_batch_add(){
 	$is_public='private'==$board['visible']?0:1;
 	$tids=array();
 	foreach($todos as $todo){
-		$uid=false;
+		$uids=array();
 		if(!empty($todo)){
 			//分析@
 			if($ats=find_at($todo)){
-				$at=$ats[0];
-				$wsql=array();
-				if( mb_strlen($at, 'UTF-8') >= 2 )
-					$wsql[] = " `name` = '" . s(t($at)) . "' ";
-				if( c('at_short_name') )
-					if( mb_strlen($at, 'UTF-8') == 2 )
-						$wsql[] = " `name` LIKE '_" . s($at) . "' ";
-				if(!empty($wsql)){
-					$uid=get_var("SELECT `id` FROM `user` WHERE (`level` > 0 AND `is_closed` != 1 ) AND ( ".join(' OR ',$wsql)." ) ");				
+				//循环分析@取UID
+				foreach($ats as $at){
+					$wsql=array();
+					if( mb_strlen($at, 'UTF-8') >= 2 )
+						$wsql[] = " `name` = '" . s(t($at)) . "' ";
+					if( c('at_short_name') )
+						if( mb_strlen($at, 'UTF-8') == 2 )
+							$wsql[] = " `name` LIKE '_" . s($at) . "' ";
+					if(!empty($wsql)){
+						$uids[]=get_var("SELECT `id` FROM `user` WHERE (`level` > 0 AND `is_closed` != 1 ) AND ( ".join(' OR ',$wsql)." ) ");				
+					}
 				}
 
 			}
+			//如果TODO以#号结尾，则为公有TODO，
+			$is_this_public='#'==substr($todo,-1)?1:$is_public;
 			//用户UID
-			if(!$uid) $uid=uid();
+			if(empty($uids))
+				$uids=array(uid());
+			else
+				$is_this_public=1;// 如果@了人，固定为公有的TODO
 			//添加todu
-			$result=json_decode(send_request('todo_add',array('text'=>$todo,'is_public'=>$is_public,'uid'=>$uid),token()),true);
+			foreach($uids as $uid){
+				$result=json_decode(send_request('todo_add',array('text'=>$todo,'is_public'=>$is_this_public,'uid'=>$uid),token()),true);
+			}
 			if(0==$result['err_code']){
 			 	$tids[]=$result['data']['tid'];
 			}else{

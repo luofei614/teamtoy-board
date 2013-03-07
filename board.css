@@ -4,7 +4,9 @@
 #board_main .list,.list_dash{width:200px; background:#E3E3E3; margin-left:10px; margin-top:10px!important; border-top:1px solid #fff; border-bottom:1px solid #404040; border-radius:3px; margin-top:20px; max-height:412px; padding:10px;}
 #board_main .list h5{ margin:0px; width:160px;}
 #board_main .list .card_list{ max-height:360px;  overflow:auto;}
-#board_main .list .card{background-color:#fff;border:1px solid #b9b9b9;border-bottom-color:#939393; border-radius:3px; padding:3px; margin-top:3px; cursor:-moz-grab;cursor:-webkit-grab;cursor:grab; width:192px;}
+#board_main .list .card{background-color:#fff;border:1px solid #b9b9b9;border-bottom-color:#939393; border-radius:3px; padding:3px; margin-top:3px; cursor:-moz-grab;cursor:-webkit-grab;cursor:grab; width:192px; word-wrap:break-word; word-break:break-all; min-height:22px;}
+#board_main .list .card span{ float:left; display:block; width:180px; word-wrap:break-word; word-break:break-all;}
+#board_main .list .card i{ float:right; color:#aaa; cursor:pointer; display:none;}
 #board_main .list .card:hover{border-color:#1F6993; box-shadow:0 0 4px #1F6993;}
 #board_main .list .add_card{ margin-top:10px; -webkit-user-select:none; -moz-user-select:none; user-select:none;}
 #create_list{ font-size:20px; color:#fff; text-align:center; padding-top:200px;}
@@ -19,8 +21,10 @@
 .list_draging,.card_draging{ position:absolute; -moz-transform:rotate(2deg);-webkit-transform:rotate(2deg); transform:rotate(2deg); box-shadow:-2px 5px 10px #333;}
 .list_dash{background:#000; border:none;}
 .card_dash{ background:#c3c3c3!important; border:none!important;}
-.card_done{ text-decoration:line-through; color:#969696;}
+.card_done span{ text-decoration:line-through; color:#969696;}
+.card_doing span:after{ background:url('./checklist.doing.gif') no-repeat;  width:16px; height:11px; margin-left:5px; display:inline-block; content:'';}
 .dash_delete{ background:#cb4d4d!important; color:#fff;}
 .dash_delete:after{content:'TODO将从看板移除';}
 #at-view { z-index:2000!important;}
 #todo_batch_add_input{ height:150px;}
+#todo_status_pop ul{ min-width:90px;}
