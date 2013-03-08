@@ -33,7 +33,7 @@ $(function(){
 	});
 
 	$('.card').hover(function(){
-		$(this).find('.todo_status').show();
+		if(!$(this).is('.card_done')) $(this).find('.todo_status').show();
 	},function(){
 		$(this).find('.todo_status').hide();
 	});
@@ -45,7 +45,8 @@ $(function(){
 		}else{
 			//显示弹出层
 			var tid=$(this).parent().attr('tid');
-			$('<div id="todo_status_pop" class="nav-collapse open"><ul class="dropdown-menu"><li><a href="javascript:todo_status(\'pause\','+tid+');">todo</a></li><li><a href="javascript:todo_status(\'start\','+tid+')">doing</a></li><li><a href="javascript:todo_status_done('+tid+')">done</a></li></ul></div>').appendTo('body').css("position","absolute").offset({top:($(this).offset().top+20),left:$(this).offset().left});;
+			var status_str=$(this).parent().is('.card_doing')?'暂停':'进行中';
+			$('<div id="todo_status_pop" class="nav-collapse open"><ul class="dropdown-menu"><li><a href="javascript:todo_status('+tid+')">'+status_str+'</a></li><li><a href="javascript:todo_status_done('+tid+')">标记为完成</a></li></ul></div>').appendTo('body').css("position","absolute").offset({top:($(this).offset().top+20),left:$(this).offset().left});;
 			$(this).addClass('open');
 		}
 		e.stopPropagation();
@@ -57,7 +58,8 @@ $(function(){
 
 });
 
-function todo_status(type,tid){
+function todo_status(tid){
+	var type=$('.card[tid="'+tid+'"]').is('.card_doing')?'pause':'start';
 	$.get('?c=dashboard&a=todo_start&tid='+tid+'&type='+type,function(d,x,s){
 		var ret=$.parseJSON(d);
 		if(!ret || 0!=ret.err_code){
