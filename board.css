@@ -4,9 +4,9 @@
 #board_main .list,.list_dash{width:200px; background:#E3E3E3; margin-left:10px; margin-top:10px!important; border-top:1px solid #fff; border-bottom:1px solid #404040; border-radius:3px; margin-top:20px; max-height:412px; padding:10px;}
 #board_main .list h5{ margin:0px; width:160px;}
 #board_main .list .card_list{ max-height:360px;  overflow:auto;}
-#board_main .list .card{background-color:#fff;border:1px solid #b9b9b9;border-bottom-color:#939393; border-radius:3px; padding:3px; margin-top:3px; cursor:-moz-grab;cursor:-webkit-grab;cursor:grab; width:192px; word-wrap:break-word; word-break:break-all; min-height:22px;}
-#board_main .list .card span{ float:left; display:block; width:180px; word-wrap:break-word; word-break:break-all;}
-#board_main .list .card i{ float:right; color:#aaa; cursor:pointer; display:none;}
+#board_main .list .card{background-color:#fff;border:1px solid #b9b9b9;border-bottom-color:#939393; border-radius:3px; padding:3px; margin-top:3px; cursor:-moz-grab;cursor:-webkit-grab;cursor:grab;   min-height:22px; position:relative; padding-right:12px;}
+#board_main .list .card span{word-wrap:break-word; word-break:break-all;}
+#board_main .list .card i{ color:#aaa; cursor:pointer;position:absolute; display:none; top:3px; right:1px; width:12px;}
 #board_main .list .card:hover{border-color:#1F6993; box-shadow:0 0 4px #1F6993;}
 #board_main .list .add_card{ margin-top:10px; -webkit-user-select:none; -moz-user-select:none; user-select:none;}
 #create_list{ font-size:20px; color:#fff; text-align:center; padding-top:200px;}

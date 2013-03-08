@@ -65,15 +65,15 @@
 			<?php
 				foreach($list['todo_lists'] as $card):
 			?>
-			<div class="card clearfix card_drag<?php 
+			<div class="card card_drag<?php 
 				if(3==$card['status']) 
 						echo ' card_done';
 				elseif(2==$card['status'])
 						echo ' card_doing';
 				
 				?>" onclick="show_todo_detail_center(<?=$card['id']?>);" tid="<?=$card['id']?>">
-				<span><?=$card['content']?></span>
 				<i class="todo_status icon-chevron-down" title="切换TODO状态"></i> 
+				<span><?=$card['content']?></span>
 			</div>
 			<?php
 				endforeach;

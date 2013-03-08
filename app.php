@@ -391,7 +391,9 @@ function board_todo_batch_add(){
 						if( mb_strlen($at, 'UTF-8') == 2 )
 							$wsql[] = " `name` LIKE '_" . s($at) . "' ";
 					if(!empty($wsql)){
-						$uids[]=get_var("SELECT `id` FROM `user` WHERE (`level` > 0 AND `is_closed` != 1 ) AND ( ".join(' OR ',$wsql)." ) ");				
+						if($get_uid=get_var("SELECT `id` FROM `user` WHERE (`level` > 0 AND `is_closed` != 1 ) AND ( ".join(' OR ',$wsql)." ) ")){
+							$uids[]=$get_uid;
+						}			
 					}
 				}
 
