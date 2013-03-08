@@ -12,7 +12,8 @@
 				'dragClass':'main_dash',//正在拖动层的样式,这个样式的position要设在为absolute
 				'direction':'y', //元素排列方向：x或y
 				'condition':'xy',//判断条件，默认x轴和y轴都判断及元素中心点如果在其他元素内则会移动虚框层，如果拖动元素大小不一样，判断中心可能不合适，这时候可以指定之判断一个条件，x或y。
-				'reset_dash_size':false,//是否设置虚框的大小（如果每个拖动层大小不一样，设置虚框大小或当前拖动层大小）
+				'reset_dash_size':false,//是否设置虚框的大小（如果每个拖动层大小不一样，设置虚框大小或当前拖动层大小,如果设置为wh表示宽高都要设置，w表示只设置宽，h表示只设置高）
+				'auto_size':false,//拖动层大小为100%, 没有设置大小时设置此为true
 				'callback':false, //拖动后的回调函数
 				'dragbox':false, //可放拖到层的容器，如果需要想一个空层中放拖动层，需要设置此项。
 				'dragbox_inner':false,//把拖动层指定放到容器里面的层
@@ -43,11 +44,12 @@
 			        var height=$this_div.height();
 			        var halfWidth=width/2;
 			        var halfHeight=height/2;
+					if(options.auto_size) $this_div.css('width',$this_div.width()+'px');
 			        //设置虚框
 			        var $tempDiv=$(options.dashDiv).insertBefore($this_div);
 					if(options.reset_dash_size){
-						$tempDiv.width($this_div.width());
-						$tempDiv.height($this_div.height());
+						 if('wh'==options.reset_dash_size || 'w'==options.reset_dash_size) $tempDiv.width($this_div.width());
+						 if('wh'==options.reset_dash_size || 'h'==options.reset_dash_size) $tempDiv.height($this_div.height());
 					}
 			        $this_div.addClass(options.dragClass);
 			        $this_div.removeClass(selectorClass);//暂时去掉，为了避免下面判断位置判断到自己
@@ -127,6 +129,7 @@
 							$tempDiv.replaceWith($this_div);
 							$this_div.removeClass(options.dragClass);
 							$this_div.addClass(selectorClass)
+							if(options.auto_size) $this_div.css('width','');
 						}
 							$(document).unbind('mouseup',drag_stop);
 							$(document).unbind('mousemove',drag_move);

@@ -19,13 +19,14 @@ $(function(){
 		'condition':'x',
 		'dashDiv':'<div  class="span list_dash"></div>',
 		'dragClass':'list_draging',
-		'reset_dash_size':true,
+		'reset_dash_size':'wh',
 		'callback':list_sort
 	});
 	$('.card_drag').ysdsort({
 		'dashDiv':'<div  class="card card_dash"></div>',
 		'dragClass':'card_draging',
-		'reset_dash_size':true,
+		'reset_dash_size':'h',
+		'auto_size':true,
 		'callback':card_sort,
 		'dragbox':'.list',
 		'dragbox_inner':'.card_list',
@@ -33,9 +34,9 @@ $(function(){
 	});
 
 	$('.card').hover(function(){
-		if(!$(this).is('.card_done')) $(this).find('.todo_status').show();
+		if(!$(this).is('.card_done')) $(this).find('.todo_status').css('visibility','visible');
 	},function(){
-		$(this).find('.todo_status').hide();
+		$(this).find('.todo_status').css('visibility','hidden');
 	});
 
 	$('.todo_status').click(function(e){
