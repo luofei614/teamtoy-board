@@ -1,4 +1,5 @@
 $(function(){
+	var dragging=false;
 	$('#board_head').hover(function(){
 		$('.board_top_ctrl').show();
 	},function(){
@@ -90,6 +91,10 @@ function todo_status_done(tid){
 }
 
 function card_sort(){
+	dragging=true;
+	setTimeout(function(){
+		dragging=false;
+	},300);
 	$('.list').each(function(){
 		var $this_list=$(this);
 		var old_todos=$this_list.attr('tods');
@@ -114,6 +119,10 @@ function card_sort(){
 }
 
 function list_sort(){
+	dragging=true;
+	setTimeout(function(){
+		dragging=false;
+	},300);
 	var list_ids=[];
 	$('.list').each(function(){
 		list_ids.push($(this).attr('lid'));
@@ -128,12 +137,18 @@ function list_sort(){
 }
 
 function list_edit(id){
+	if(dragging) return ;//解决firefox19  拖动会触发点击的问题
 	$('#list_head_'+id).hide();
 	$('#list_edit_head_'+id).show();
 }
 function list_edit_cancel(id){
 	$('#list_edit_head_'+id).hide();
 	$('#list_head_'+id).show();
+}
+function board_show_todo_detail_center(id){
+	if(dragging) return;//解决firefox19 拖动会触发点击的问题
+	show_todo_detail_center(id);
+
 }
 
 function todo_batch_add(board_id,list_id,visible){

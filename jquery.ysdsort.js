@@ -36,7 +36,7 @@
 			$handler.css('user-select','none');
 			$handler.live('mousedown',function(e){
 			    var $this_div=options.handler?$(this).parents(selector):$(this);
-				var readymove=function(){	
+				var readymove=function(){
 			        //获得鼠标在元素内部的位置
 			        var insertX=e.pageX-$this_div.offset().left;
 			        var insertY=e.pageY-$this_div.offset().top;
@@ -119,7 +119,7 @@
 					var selectstart=function(e){
 						e.preventDefault();
 					}
-			        var drag_stop=function(){
+			        var drag_stop=function(e){
 						if(options.outer && $tempDiv.is('.'+options.outer_dash_class)){
 							//删除拖动层
 							$tempDiv.remove();
@@ -144,7 +144,7 @@
 			};// end readymove
 
 				readymovetimeout=setTimeout(readymove,200);//延迟拖动, 可似地拖动层内部元素的click事件得到监听
-    }).live('mouseup',function(){
+    }).live('mouseup',function(e){
 				clearTimeout(readymovetimeout);
 	});
 

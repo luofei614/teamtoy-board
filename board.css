@@ -9,6 +9,7 @@
 #board_main .list .card i{ color:#aaa; cursor:pointer; float:right; visibility:hidden;}
 #board_main .list .card:hover{border-color:#1F6993; box-shadow:0 0 4px #1F6993;}
 #board_main .list .add_card{ margin-top:10px; -webkit-user-select:none; -moz-user-select:none; user-select:none;}
+#board_main .list .add_card .side_link{ margin-left:0px;}
 #create_list{ font-size:20px; color:#fff; text-align:center; padding-top:200px;}
 #create_list a{ color:#eee; text-decoration:underline;}
 .board_create_btn{ position:relative; top:-5px;}
