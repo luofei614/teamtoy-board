@@ -1,5 +1,5 @@
 $(function(){
-	var dragging=false;
+	dragging=false;
 	$('#board_head').hover(function(){
 		$('.board_top_ctrl').show();
 	},function(){
