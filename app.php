@@ -181,7 +181,8 @@ function plugin_board_todo_import(){
 add_action('PLUGIN_BOARD_GET_TODO_BY_UID','plugin_board_get_todo_by_uid');
 function plugin_board_get_todo_by_uid($uid=null){
 	$sql_uid=empty($uid)?intval(v('uid')):$uid;
-	$data=get_data("select distinct id,content from todo left join todo_user on todo.id=todo_user.tid where todo.owner_uid='{$sql_uid}' and todo_user.status!=3");
+	$is_public=$sql_uid==uid()?'':" and todo_user.is_public='1'";//屏蔽其他人的似有TODO
+	$data=get_data("select distinct id,content from todo left join todo_user on todo.id=todo_user.tid where todo.owner_uid='{$sql_uid}' and todo_user.status!=3{$is_public}");
 	if(empty($uid)) exit(json_encode($data));
 	return $data;
 }
