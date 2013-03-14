@@ -1,5 +1,5 @@
 <form action="?c=plugin&a=board_save"   method="POST">
-	<input type="TEXT" name="name" placeholder="看板名称" class="span4" value="<?=$board['name']?>" id="board_name" /><br />
+	<input type="TEXT" name="name" placeholder="看板名称" class="span4" value="<?php echo $board['name']?>" id="board_name" /><br />
 	<?php
 		if(1!=$id)://不能修改默认看板的权限
 	?><select id="board_visible" class="span2" name="visible">
@@ -11,6 +11,6 @@
 		echo '所有人可见(默认模板不能修改可见权限)<br /><br />';
 		endif;
 	?>
-	<input type="hidden" name="id" value="<?=$id?>" />
+	<input type="hidden" name="id" value="<?php echo $id?>" />
 	<button type="submit" class="btn board_create_btn">修改</button>
 </form>
