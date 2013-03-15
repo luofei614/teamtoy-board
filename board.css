@@ -29,3 +29,17 @@
 #at-view { z-index:2000!important;}
 #todo_batch_add_input{ height:150px;}
 #todo_status_pop ul{ min-width:90px;}
+.fullscreen {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1040;
+  margin: 0;
+  padding: 0;
+  background: inherit;
+}
+.fullscreen-ctrol{text-align:right; padding:10px;}
+#board_small_size{ position:absolute; z-index:1041;}

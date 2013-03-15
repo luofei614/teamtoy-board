@@ -159,12 +159,8 @@ function plugin_board_todo_add(){
 }
 add_action('PLUGIN_BOARD_TODO_INSERT','plugin_board_todo_insert');
 function plugin_board_todo_insert(){
-	$result=json_decode(send_request('board_todo_batch_add',array(),token()),true);
-	if(0!=$result['err_code']){
-		info_page('TODU添加失败,'.$result['err_msg']);
-	}else{
-		header('location:'.$_SERVER['HTTP_REFERER']);
-	}
+	exit(send_request('board_todo_batch_add',array(),token()));
+	
 }
 add_action('PLUGIN_BOARD_TODO_SORT','plugin_board_todo_sort');
 function plugin_board_todo_sort(){
@@ -188,12 +184,7 @@ function plugin_board_get_todo_by_uid($uid=null){
 }
 add_action('PLUGIN_BOARD_TODO_IMPORT_SAVE','plugin_board_todo_import_save');
 function plugin_board_todo_import_save(){
-	$result=json_decode(send_request('board_todo_import',array(),token()),true);
-	if(0!=$result['err_code']){
-		info_page('TODO导入失败');
-	}else{
-		header('location:'.$_SERVER['HTTP_REFERER']);
-	}
+	exit(send_request('board_todo_import',array(),token()));
 }
 //API
 
@@ -378,6 +369,7 @@ function board_todo_batch_add(){
 	}
 	$is_public='private'==$board['visible']?0:1;
 	$tids=array();
+	$ret=array();
 	foreach($todos as $todo){
 		$uids=array();
 		if(!empty($todo)){
@@ -412,6 +404,7 @@ function board_todo_batch_add(){
 			}
 			if(0==$result['err_code']){
 			 	$tids[]=$result['data']['tid'];
+				$ret[$result['data']['id']]=$result['data']['content'];
 			}else{
 				return apiController::send_error(6016,'todo['.$todo.'] add failed,'.$result['err_msg']);
 			}
@@ -420,7 +413,7 @@ function board_todo_batch_add(){
 	if(!empty($tids)){
 	  run_sql("update board_list set todos=concat_ws(',',todos,'".implode(',',$tids)."') where id='{$list_id}'");
 	}
-	return apiController::send_result('success');
+	return apiController::send_result($ret);
 
 }
 add_action('API_BOARD_TODO_IMPORT','board_todo_import');

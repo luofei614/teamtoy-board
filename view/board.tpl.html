@@ -37,7 +37,7 @@
 </div><!--/span5-->
 </div><!--/row-fluid-->
 <div id="board_main" class="row">
-  <div id="board_wrap" class="clearfix" style="width:100%;">
+  <div id="board_wrap" class="clearfix" style="width:100%;height:100%;">
 	 <?php
 	 	if(!empty($board['lists'])):
 	 	foreach($board['lists'] as $list):
@@ -89,6 +89,7 @@
 	<?php
 	endif;
 	?>
- </div>
-
-</div>
+ </div><!--/board_wrap-->
+</div><!--/board_main-->
+<div class="fullscreen-ctrol"><a href="javascript:board_fullscreen();" class="side_link"><i class="icon-fullscreen"></i>全屏</a></div>
+<div id="board_small_size" class="hide"><a href="javascript:board_small_size();" class="side_link"><i class="icon-resize-small"></i>取消全屏</a></div>

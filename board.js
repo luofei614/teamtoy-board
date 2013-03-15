@@ -175,3 +175,66 @@ function board_get_todos_by_uid(uid){
 	});
 }
 
+function board_fullscreen(){
+	$('#board_main').addClass('fullscreen');
+	var h=$('#board_wrap').height()-50;
+	$('.list').css('max-height',h+'px');
+	$('.card_list').css('max-height',(h-52)+'px');
+	$('#board_small_size').show().offset({
+		top:$(window).height()-20,
+		left:$(window).width()-100
+	});
+}
+
+function board_small_size(){
+	$('#board_main').removeClass('fullscreen');
+	$('.list').css('max-height','412px');
+	$('.card_list').css('max-height','360px');
+	$('#board_small_size').hide();
+}
+
+function board_batch_add_todo(list_id){
+	send_form('board_batch_add_todo_form',function(d,x,s){
+		var ret=$.parseJSON(d);
+		if(0!=ret.err_code){
+			alert('TODO添加失败，错误信息：'+ret.err_msg);
+		}else{
+			var tids='';
+			$.each(ret.data,function(k,v){
+				tids+=','+k;
+				$('<div tid="'+k+'" onclick="board_show_todo_detail_center('+k+');" class="card clearfix card_drag"><i title="切换TODO状态" class="todo_status icon-chevron-down" style="visibility: hidden;"></i><span>'+v+'</span></div>').appendTo('.list[lid="'+list_id+'"]>.card_list');
+			});
+			$('.list[lid="'+list_id+'"]').attr('todos',($('.list[lid="'+list_id+'"]').attr('todos')+tids).replace(/(^,)/,''));
+			close_float_box();
+		}
+	});
+
+	return false;
+}
+
+function board_todo_import(board_id,list_id){
+	var url=$('#board_todo_import_form').attr('action');
+	var todos=$('#import_todos').val();
+	if(''==todos){
+		alert('请选择要导入的TODO')
+		return false;
+	}
+	$.post(url,'board_id='+board_id+'&list_id='+list_id+'&todos='+todos.join(','),function(d,x,s){
+		var ret=$.parseJSON(d);
+		if(0!=ret.err_code){
+			alert('TODO添加失败，错误信息：'+ret.err_msg);
+		}else{
+			var tids='';
+			$.each(todos,function(k,v){
+				tids+=','+v;
+				var todo_str=$('#import_todos>option[value="'+v+'"]').html();
+				$('<div tid="'+v+'" onclick="board_show_todo_detail_center('+v+');" class="card clearfix card_drag"><i title="切换TODO状态" class="todo_status icon-chevron-down" style="visibility: hidden;"></i><span>'+todo_str+'</span></div>').appendTo('.list[lid="'+list_id+'"]>.card_list');
+			});
+			$('.list[lid="'+list_id+'"]').attr('todos',($('.list[lid="'+list_id+'"]').attr('todos')+tids).replace(/(^,)/,''));
+			close_float_box();
+		}
+
+	});
+	return false;
+}
+
