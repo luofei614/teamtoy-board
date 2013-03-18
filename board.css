@@ -42,4 +42,5 @@
   background: inherit;
 }
 .fullscreen-ctrol{text-align:right; padding:10px;}
+.fullscreen-ctrol .side_link:hover,#board_small_size .side_link{ text-decoration:none;}
 #board_small_size{ position:absolute; z-index:1041;}
