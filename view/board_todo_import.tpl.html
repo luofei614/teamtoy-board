@@ -5,9 +5,13 @@
 		<?php endforeach;?>
 	</select>
 	<select size="10" multiple="true"  id="import_todos" name="todos[]">
-		<?php foreach($todos as $todo):?>
+		<?php
+	if(!empty($todos)):
+	   	foreach($todos as $todo):?>
 		<option value="<?php echo $todo['id']?>"><?php echo $todo['content']?></option>
-		<?php endforeach; ?>
+		<?php endforeach;
+	endif;   
+		?>
 	</select>
 	<br>
 	<input type="hidden" name="board_id" value="<?php echo intval(v('board_id'))?>" />

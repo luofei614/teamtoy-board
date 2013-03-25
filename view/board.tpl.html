@@ -43,11 +43,13 @@
 	 	foreach($board['lists'] as $list):
 	 ?>
 	<div lid="<?php echo $list['id']?>" todos="<?php echo $list['todos']?>" class="list list_drag span">
-		<div class="clearfix list_head" id="list_head_<?php echo $list['id']?>"><h5 title="单击标题进行编辑" onclick="list_edit(<?php echo $list['id']?>)" id="list_title_<?php echo $list['id']?>" class="pull-left"><?php echo $list['name']?></h5><a title="删除" onclick="return confirm('是否确认删除列表')" class="list_remove" href="?c=plugin&a=board_list_delete&id=<?php echo $list['id']?>"><i class="icon-remove pull-right"></i></a></div>
+		<div class="list_head clearfix" id="list_head_<?php echo $list['id']?>">
+			<h5 title="单击标题进行编辑" onclick="list_edit(<?php echo $list['id']?>)" id="list_title_<?php echo $list['id']?>" class="pull-left"><?php echo $list['name']?></h5><a title="删除" onclick="return confirm('是否确认删除列表')" class="list_remove" href="?c=plugin&a=board_list_delete&id=<?php echo $list['id']?>"><i class="icon-remove pull-right"></i></a>
+		</div>
 		<div class="list_edit_head" id="list_edit_head_<?php echo $list['id']?>">
 			<form id="todo_edit_form" method="post" action="?c=plugin&a=board_list_update" class="form-inline">
 				<div class="input-append">
-					<input type="text" autofocus="autofocus" class="list_edit_input" name="name" value="<?php echo $list['name']?>">
+					<input type="text" autofocus="autofocus" class="list_edit_input" maxlength="10" name="name" value="<?php echo $list['name']?>">
 					<input type="hidden" name="id" value="<?php echo $list['id']?>" />
   				<div class="btn-group left_square">
 				<button class="btn" type="submit">保存</button>

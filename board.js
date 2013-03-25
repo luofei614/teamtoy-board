@@ -1,5 +1,6 @@
 $(function(){
 	dragging=false;
+
 	$('#board_head').hover(function(){
 		$('.board_top_ctrl').show();
 	},function(){
@@ -8,6 +9,7 @@ $(function(){
 	if($('.list').size()>4){
 		$('#board_wrap').width(($('.list').outerWidth(true)*$('.list').size())+10);
 	}
+
 	$('.list_head').hover(function(){
 		$(this).find('.list_remove').show();
 	},function(){
@@ -23,7 +25,18 @@ $(function(){
 		'reset_dash_size':'wh',
 		'callback':list_sort
 	});
-	$('.card_drag').ysdsort({
+	card_initUI();
+	$(document).click(function(){
+		$('#todo_status_pop').remove();
+		$('.todo_status').removeClass('open');
+	});
+
+});
+
+
+function card_initUI(_box){
+	var $p=_box||document;
+	$('.card_drag',$p).ysdsort({
 		'dashDiv':'<div  class="card card_dash"></div>',
 		'dragClass':'card_draging',
 		'reset_dash_size':'h',
@@ -34,13 +47,13 @@ $(function(){
 		'outer':'#board_main'
 	});
 
-	$('.card').hover(function(){
+	$('.card',$p).hover(function(){
 		if(!$(this).is('.card_done')) $(this).find('.todo_status').css('visibility','visible');
 	},function(){
 		$(this).find('.todo_status').css('visibility','hidden');
 	});
 
-	$('.todo_status').click(function(e){
+	$('.todo_status',$p).click(function(e){
 		$('#todo_status_pop').remove();
 		if($(this).is('.open')){
 			$(this).removeClass('open');
@@ -53,12 +66,9 @@ $(function(){
 		}
 		e.stopPropagation();
 	});
-	$(document).click(function(){
-		$('#todo_status_pop').remove();
-		$('.todo_status').removeClass('open');
-	});
 
-});
+
+}
 
 function todo_status(tid){
 	var type=$('.card[tid="'+tid+'"]').is('.card_doing')?'pause':'start';
@@ -202,7 +212,8 @@ function board_batch_add_todo(list_id){
 			var tids='';
 			$.each(ret.data,function(k,v){
 				tids+=','+k;
-				$('<div tid="'+k+'" onclick="board_show_todo_detail_center('+k+');" class="card clearfix card_drag"><i title="切换TODO状态" class="todo_status icon-chevron-down" style="visibility: hidden;"></i><span>'+v+'</span></div>').appendTo('.list[lid="'+list_id+'"]>.card_list');
+				$card=$('<div><div tid="'+k+'" onclick="board_show_todo_detail_center('+k+');" class="card clearfix card_drag"><i title="切换TODO状态" class="todo_status icon-chevron-down" style="visibility: hidden;"></i><span>'+v+'</span></div></div>').appendTo('.list[lid="'+list_id+'"]>.card_list');
+				card_initUI($card);
 			});
 			$('.list[lid="'+list_id+'"]').attr('todos',($('.list[lid="'+list_id+'"]').attr('todos')+tids).replace(/(^,)/,''));
 			close_float_box();
