@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `board_list` (
  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
  `name` char(50) NOT NULL,
  `board_id` int(11) unsigned NOT NULL,
- `todos` char(100) DEFAULT NULL,
+ `todos` text DEFAULT NULL,
  `sort` tinyint(4) unsigned NOT NULL DEFAULT '99',
  PRIMARY KEY (`id`),
  KEY `board_id` (`board_id`)
